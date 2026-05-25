@@ -35,12 +35,9 @@ export default function Index() {
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-tight drop-shadow-lg w-full"
             />
           </div>
-          <p className="text-lg md:text-xl text-white mb-8 leading-relaxed drop-shadow-md max-w-2xl">
+          <p className="text-lg md:text-xl text-white leading-relaxed drop-shadow-md max-w-2xl">
             El dolor que se manifiesta desde un silencio interior.
           </p>
-          <button className="px-8 py-3 bg-blood text-white font-semibold rounded-lg hover:bg-blood-dark transition-colors duration-300 shadow-lg">
-            Learn More
-          </button>
         </div>
       </section>
 
