@@ -52,29 +52,21 @@ export default function Index() {
                 Supporting those with endometriosis
               </p>
             </div>
-            <div className="flex gap-8 text-sm">
-              <a
-                href="/about"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Instalación
-              </a>
-              <a
-                href="/symptoms"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Bitacora
-              </a>
-              <a
-                href="/support"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Nosotrxs
-              </a>
+            <div className="flex items-center gap-8">
+              <img
+                src="/logos/logo-cam.png"
+                alt="Logo CAM"
+                className="h-14 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+              />
+              <img
+                src="/logos/logo-udea.png"
+                alt="Logo Universidad de Antioquia"
+                className="h-14 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+              />
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2024 Hystera. All rights reserved.</p>
+            <p>&copy; 2026 Hystera. All rights reserved.</p>
           </div>
         </div>
       </footer>
