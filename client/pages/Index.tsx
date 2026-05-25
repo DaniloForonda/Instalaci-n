@@ -45,13 +45,7 @@ export default function Index() {
       {/* Footer */}
       <footer className="bg-black text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-8 md:mb-0">
-              <h3 className="text-2xl font-bold">Hystera</h3>
-              <p className="text-gray-400 mt-2">
-                Supporting those with endometriosis
-              </p>
-            </div>
+          <div className="flex justify-center items-center">
             <div className="flex items-center gap-8">
               <img
                 src="/logos/logo-cam.png"
