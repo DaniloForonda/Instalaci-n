@@ -7,24 +7,25 @@ export default function About() {
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl font-bold text-black mb-8">
-            What is Endometriosis?
+            ¿Qué es la endometriosis?
           </h1>
           <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            Endometriosis is a chronic condition where tissue similar to the
-            uterine lining grows outside the uterus. This can cause severe pain,
-            fertility issues, and significantly impact quality of life. It
-            affects an estimated 10% of women of reproductive age worldwide.
+            La endometriosis es una condición crónica en la que tejido similar
+            al revestimiento del útero crece fuera del útero. Esto puede causar
+            dolor intenso, problemas de fertilidad y afectar de manera
+            significativa la calidad de vida. Se estima que afecta al 10% de las
+            mujeres en edad reproductiva en todo el mundo.
           </p>
           <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            Early awareness and diagnosis are crucial for managing this
-            condition. Our mission is to provide education, support, and
-            resources for those living with endometriosis.
+            La detección y el diagnóstico tempranos son fundamentales para
+            manejar esta condición. Nuestra misión es ofrecer educación, apoyo y
+            recursos para quienes viven con endometriosis.
           </p>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Whether you have been recently diagnosed, have been living with
-            endometriosis for years, or are supporting someone with the
-            condition, you'll find valuable information and community resources
-            here.
+            Ya sea que hayas sido diagnosticada recientemente, lleves años
+            conviviendo con la endometriosis o estés acompañando a alguien con
+            esta condición, aquí encontrarás información valiosa y recursos de
+            comunidad.
           </p>
         </div>
       </section>
@@ -35,7 +36,7 @@ export default function About() {
             <div className="mb-8 md:mb-0">
               <h3 className="text-2xl font-bold">Hystera</h3>
               <p className="text-gray-400 mt-2">
-                Supporting those with endometriosis
+                Apoyando a quienes viven con endometriosis
               </p>
             </div>
             <div className="flex gap-8 text-sm">
@@ -43,7 +44,7 @@ export default function About() {
                 href="/"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Home
+                Inicio
               </a>
               <a
                 href="/about"
@@ -66,7 +67,7 @@ export default function About() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2024 Hystera. All rights reserved.</p>
+            <p>&copy; 2024 Hystera. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
