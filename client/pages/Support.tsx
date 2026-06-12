@@ -1,3 +1,4 @@
+import { CablesAnimationOverlay } from "@/components/CablesAnimationOverlay";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
@@ -36,10 +37,11 @@ const manifestoParagraphs = [
 
 export default function Support() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="relative bg-white min-h-screen">
       <Navbar />
+      <CablesAnimationOverlay />
 
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <section className="relative z-10 pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-sm font-semibold tracking-[0.3em] uppercase text-blood mb-4">
@@ -93,7 +95,9 @@ export default function Support() {
         </div>
       </section>
 
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 }

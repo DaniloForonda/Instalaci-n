@@ -1,0 +1,323 @@
+{
+    "_id": "6a19d4c2fbe86a66372b5df5",
+    "ops": [
+        {
+            "id": "mausfg40b",
+            "attribs": {},
+            "portsIn": [
+                {
+                    "name": "Max Pixel Density (DPR)",
+                    "value": 2
+                },
+                {
+                    "name": "FPS Limit",
+                    "value": 0
+                },
+                {
+                    "name": "Reduce FPS unfocussed",
+                    "value": 0
+                },
+                {
+                    "name": "Transparent",
+                    "value": 1
+                },
+                {
+                    "name": "Active",
+                    "value": 1
+                },
+                {
+                    "name": "Focus canvas",
+                    "value": 1
+                }
+            ],
+            "portsOut": [
+                {
+                    "name": "trigger",
+                    "links": [
+                        {
+                            "portIn": "render",
+                            "portOut": "trigger",
+                            "objIn": "gepp18otr",
+                            "objOut": "mausfg40b"
+                        }
+                    ]
+                },
+                {
+                    "name": "width",
+                    "value": 1182
+                },
+                {
+                    "name": "height",
+                    "value": 402
+                },
+                {
+                    "name": "Pixel Density",
+                    "value": 2
+                }
+            ],
+            "objName": "Ops.Gl.MainLoop_v2"
+        },
+        {
+            "id": "250s2i5np",
+            "attribs": {},
+            "portsIn": [
+                {
+                    "name": "Speed",
+                    "value": 1
+                },
+                {
+                    "name": "Play",
+                    "value": 1
+                },
+                {
+                    "name": "Sync to timeline",
+                    "value": 0
+                }
+            ],
+            "portsOut": [
+                {
+                    "name": "Time",
+                    "links": [
+                        {
+                            "portIn": "time",
+                            "portOut": "Time",
+                            "objIn": "x7hllgkip",
+                            "objOut": "250s2i5np"
+                        }
+                    ]
+                }
+            ],
+            "objName": "Ops.Anim.Timer_v2"
+        },
+        {
+            "id": "x7hllgkip",
+            "attribs": {},
+            "portsIn": [
+                {
+                    "name": "Fragment Code",
+                    "value": "precision highp float;\n\nuniform float time;\nuniform vec2 resolution;\n\nfloat hash(vec2 p) {\n    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat noise(vec2 p) {\n    vec2 i = floor(p);\n    vec2 f = fract(p);\n    vec2 u = f * f * (3.0 - 2.0 * f);\n    return mix(\n        mix(hash(i + vec2(0,0)), hash(i + vec2(1,0)), u.x),\n        mix(hash(i + vec2(0,1)), hash(i + vec2(1,1)), u.x),\n        u.y\n    );\n}\n\n// Chorro individual con su propia velocidad y fase\nfloat chorro(vec2 uv, float aspect, float offset, float speed,\n             float phase, float yBase, float len, float grosor) {\n\n    float chorroX = mod(offset * speed + phase, 1.8) - 0.4;\n\n    float centerY = yBase\n        + 0.19 * sin(uv.x * 2.5  - offset * 1.3  + phase)\n        + 0.11 * sin(uv.x * 5.8  + offset * 2.4  - phase * 0.7)\n        + 0.08 * sin(uv.x * 10.0 - offset * 3.5  + phase * 1.2)\n        + 0.05 * cos(uv.x * 4.0  + offset * 1.6  + phase * 0.5)\n        + 0.03 * sin(uv.x * 16.0 - offset * 5.0);\n\n    float wiggleX = 0.08 * sin(uv.y * 3.5  - offset * 2.2 + phase)\n                  + 0.05 * sin(uv.y * 8.0  + offset * 3.3 - phase)\n                  + 0.02 * cos(uv.y * 14.0 - offset * 4.1);\n\n    float uvx      = uv.x - wiggleX;\n    float dxC      = uvx - chorroX;\n\n    float inC = smoothstep(0.0, 0.05, dxC) *\n                smoothstep(0.0, 0.05, chorroX + len - uvx);\n\n    float taper = smoothstep(0.0, 0.09, dxC) *\n                  smoothstep(0.0, 0.09, chorroX + len - uvx);\n\n    float noiseEdge = noise(vec2(uv.x * 6.0 - offset * 2.5 + phase, uv.y * 4.0 + offset)) * 0.018\n                    + noise(vec2(uv.x * 13.0 + offset * 1.5, uv.y * 7.0 - offset * 2.0 + phase)) * 0.010;\n\n    // Variación de grosor a lo largo del chorro (pulsos)\n    float pulse = 1.0 + 0.35 * sin(dxC * 28.0 - offset * 8.0 + phase)\n                      + 0.15 * sin(dxC * 52.0 + offset * 5.0);\n\n    float thickness = (grosor + grosor * 0.55 * taper + noiseEdge) * pulse;\n\n    float distY = abs(uv.y - centerY);\n    return smoothstep(thickness, thickness * 0.08, distY) * inC;\n}\n\nvoid main() {\n    vec2 uv = gl_FragCoord.xy / resolution;\n    float aspect = resolution.x / resolution.y;\n\n    float offset = time * 0.15;\n\n    // — 3 CHORROS con velocidades distintas —\n    float c1 = chorro(uv, aspect, offset, 0.80, 0.00, 0.50, 0.34, 0.055);\n    float c2 = chorro(uv, aspect, offset, 1.30, 2.09, 0.48, 0.28, 0.042);\n    float c3 = chorro(uv, aspect, offset, 0.55, 4.18, 0.52, 0.40, 0.048);\n\n    float chorroTotal = min(c1 + c2 + c3, 1.0);\n\n    // — GOTAS más gruesas —\n    float drops = 0.0;\n\n    for (int i = 0; i < 26; i++) {\n        float fi = float(i);\n\n        float seedX     = hash(vec2(fi, 1.0));\n        float seedSpeed = 0.25 + hash(vec2(fi, 3.0)) * 0.55;\n        float seedSize  = 0.026 + hash(vec2(fi, 4.0)) * 0.036; // más gruesas\n        float seedOrbit = 0.07 + hash(vec2(fi, 5.0)) * 0.12;\n        float seedPhase = hash(vec2(fi, 7.0)) * 6.28;\n        float seedLen   = 0.28 + hash(vec2(fi, 8.0)) * 0.18;\n\n        // Cada gota sigue a uno de los 3 chorros\n        float whichC  = floor(mod(fi, 3.0));\n        float cSpeed  = whichC < 1.0 ? 0.80 : (whichC < 2.0 ? 1.30 : 0.55);\n        float cPhase  = whichC < 1.0 ? 0.00 : (whichC < 2.0 ? 2.09 : 4.18);\n        float cBase   = whichC < 1.0 ? 0.50 : (whichC < 2.0 ? 0.48 : 0.52);\n\n        float chorroX = mod(offset * cSpeed + cPhase, 1.8) - 0.4;\n\n        float dropX = mod(chorroX + seedX * seedLen\n                      + offset * (0.6 + hash(vec2(fi, 6.0))) * 0.05, 1.8) - 0.4;\n\n        float orbitSpeed = seedSpeed * (mod(fi, 2.0) < 1.0 ? 1.0 : -1.0);\n        float angle = time * orbitSpeed * 1.5\n                    + fi * 2.39996\n                    + 0.7 * sin(time * seedSpeed * 0.9 + seedPhase);\n\n        float dropCenterY = cBase\n            + 0.19 * sin(dropX * 2.5  - offset * 1.3  + cPhase)\n            + 0.11 * sin(dropX * 5.8  + offset * 2.4  - cPhase * 0.7)\n            + 0.08 * sin(dropX * 10.0 - offset * 3.5  + cPhase * 1.2);\n\n        float dropY    = dropCenterY + seedOrbit * sin(angle);\n        float dropXpos = dropX + (seedOrbit * 0.55 / aspect) * cos(angle);\n\n        vec2 diff = uv - vec2(dropXpos, dropY);\n        diff.x *= aspect * 0.80;\n        float d = length(diff);\n\n        drops += smoothstep(seedSize, seedSize * 0.04, d);\n        drops += smoothstep(seedSize * 2.2, seedSize, d) * 0.22;\n    }\n\n    drops = min(drops, 1.0);\n\n    // — COLOR #6B1E1E —\n    vec3 bloodDark  = vec3(0.267, 0.047, 0.047);\n    vec3 bloodMain  = vec3(0.418, 0.118, 0.118);\n    vec3 bloodLight = vec3(0.560, 0.190, 0.190);\n\n    float lum = 0.5 + 0.5 * sin(uv.x * 8.0 - offset * 2.5 + uv.y * 3.0);\n\n    vec3 colChorro = mix(bloodDark, bloodLight, 0.3 + 0.4 * lum);\n    vec3 colDrop   = mix(bloodDark, bloodMain,  0.2 + 0.4 * lum);\n\n    float mask = max(chorroTotal, drops);\n    vec3 finalColor = mix(colDrop, colChorro, chorroTotal / (mask + 0.001)) * mask;\n\n    gl_FragColor = vec4(finalColor, mask);\n}\n"
+                },
+                {
+                    "name": "Vertex Code",
+                    "value": "{{MODULES_HEAD}}\nIN vec3 vPosition; //!@\nIN vec2 attrTexCoord;\nIN vec3 attrVertNormal;\nIN vec3 attrTangent,attrBiTangent;\n\nIN float attrVertIndex;\n\nOUT vec2 texCoord;\nOUT vec3 norm;\nUNI mat4 projMatrix;\nUNI mat4 viewMatrix;\nUNI mat4 modelMatrix;\n\nvoid main()\n{\n    texCoord=attrTexCoord;\n    norm=attrVertNormal;\n    vec4 pos=vec4(vPosition,  1.0);\n    vec3 tangent=attrTangent;\n    vec3 bitangent=attrBiTangent;\n    mat4 mMatrix=modelMatrix;\n    gl_PointSize=10.0;\n\n    {{MODULE_VERTEX_POSITION}}\n\n    mat4 modelViewMatrix=viewMatrix*mMatrix;\n    {{MODULE_VERTEX_MODELVIEW}}\n\n    gl_Position = projMatrix * modelViewMatrix * pos;\n}\n"
+                },
+                {
+                    "name": "Use As Material",
+                    "value": 1
+                }
+            ],
+            "portsOut": [
+                {
+                    "name": "trigger",
+                    "links": [
+                        {
+                            "portIn": "render",
+                            "portOut": "trigger",
+                            "objIn": "4awlu9y49",
+                            "objOut": "x7hllgkip"
+                        }
+                    ]
+                },
+                {
+                    "name": "Has Errors",
+                    "value": false
+                }
+            ],
+            "objName": "Ops.Gl.Shader.CustomShader_v2"
+        },
+        {
+            "id": "ohk4qvgrn",
+            "attribs": {},
+            "portsOut": [
+                {
+                    "name": "CSS Width",
+                    "value": 591
+                },
+                {
+                    "name": "CSS Height",
+                    "value": 201
+                },
+                {
+                    "name": "Pixel Ratio",
+                    "value": 2
+                },
+                {
+                    "name": "Pixel Width",
+                    "links": [
+                        {
+                            "portIn": "resolution X",
+                            "portOut": "Pixel Width",
+                            "objIn": "x7hllgkip",
+                            "objOut": "ohk4qvgrn"
+                        }
+                    ]
+                },
+                {
+                    "name": "Pixel Height",
+                    "links": [
+                        {
+                            "portIn": "resolution Y",
+                            "portOut": "Pixel Height",
+                            "objIn": "x7hllgkip",
+                            "objOut": "ohk4qvgrn"
+                        }
+                    ]
+                },
+                {
+                    "name": "Aspect Ratio",
+                    "value": 2.9402985074626864
+                },
+                {
+                    "name": "Landscape",
+                    "value": 1
+                }
+            ],
+            "objName": "Ops.Gl.CanvasInfo_v3"
+        },
+        {
+            "id": "ka3c683x8",
+            "attribs": {},
+            "portsIn": [
+                {
+                    "name": "Recording",
+                    "value": 0
+                },
+                {
+                    "name": "Filename",
+                    "value": "Animation 1"
+                },
+                {
+                    "name": "Download Video",
+                    "value": 1
+                },
+                {
+                    "name": "Mimetype index",
+                    "value": 3
+                },
+                {
+                    "name": "Mimetype",
+                    "value": "video/webm;codecs=vp9"
+                },
+                {
+                    "name": "MBit",
+                    "value": 5
+                },
+                {
+                    "name": "Max FPS",
+                    "value": 30
+                },
+                {
+                    "name": "Force FPS",
+                    "value": 0
+                },
+                {
+                    "name": "Media index",
+                    "value": 0
+                },
+                {
+                    "name": "Media",
+                    "value": "Video"
+                },
+                {
+                    "name": "Canvas index",
+                    "value": 0
+                },
+                {
+                    "name": "Canvas",
+                    "value": "Default"
+                },
+                {
+                    "name": "Video Canvas Id",
+                    "value": "glcanvas"
+                }
+            ],
+            "portsOut": [
+                {
+                    "name": "State",
+                    "value": "inactive"
+                },
+                {
+                    "name": "Error",
+                    "value": ""
+                },
+                {
+                    "name": "Final Mimetype",
+                    "value": "video/webm;codecs=vp9"
+                },
+                {
+                    "name": "Duration",
+                    "value": 80001.19320799992
+                },
+                {
+                    "name": "Video DataUrl",
+                    "value": "blob:file:///5ad9f857-8864-499c-9c60-21354d7552f7"
+                }
+            ],
+            "objName": "Ops.Gl.MediaRecorder_v2"
+        },
+        {
+            "id": "4awlu9y49",
+            "attribs": {},
+            "portsIn": [
+                {
+                    "name": "Scale index",
+                    "value": 1
+                },
+                {
+                    "name": "Scale",
+                    "value": "Fit"
+                },
+                {
+                    "name": "Flip Y",
+                    "value": 0
+                },
+                {
+                    "name": "Flip X",
+                    "value": 0
+                }
+            ],
+            "objName": "Ops.Gl.Meshes.FullscreenRectangle_v2"
+        },
+        {
+            "id": "gepp18otr",
+            "attribs": {},
+            "portsIn": [
+                {
+                    "name": "r",
+                    "value": 0.1
+                },
+                {
+                    "name": "g",
+                    "value": 0.1
+                },
+                {
+                    "name": "b",
+                    "value": 0.1
+                },
+                {
+                    "name": "a",
+                    "value": 0
+                }
+            ],
+            "portsOut": [
+                {
+                    "name": "trigger",
+                    "links": [
+                        {
+                            "portIn": "render",
+                            "portOut": "trigger",
+                            "objIn": "x7hllgkip",
+                            "objOut": "gepp18otr"
+                        }
+                    ]
+                }
+            ],
+            "objName": "Ops.Gl.ClearColor"
+        }
+    ],
+    "export": {
+        "time": "2026-06-12 03:03",
+        "service": "html",
+        "exportNumber": 1
+    }
+}
