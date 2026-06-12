@@ -7,7 +7,7 @@ export function CablesAnimationOverlay() {
       <iframe
         src="/cables-animation/overlay.html"
         title="Animación Hystera"
-        className="h-full w-full border-0 bg-transparent opacity-[0.15] [filter:sepia(1)_saturate(8)_hue-rotate(330deg)_brightness(0.9)]"
+        className="h-full w-full border-0 bg-transparent opacity-90"
         allow="autoplay"
       />
     </div>

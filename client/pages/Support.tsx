@@ -64,8 +64,8 @@ export default function Support() {
               />
             </div>
 
-            <div className="mx-auto w-full max-w-[560px] sm:max-w-[640px] lg:max-w-[600px] px-4 sm:px-6 lg:pt-0">
-              <div className="space-y-6 text-sm sm:text-base text-gray-700 leading-relaxed">
+            <div className="mx-auto w-full max-w-[560px] sm:max-w-[640px] lg:max-w-[600px] lg:pt-0">
+              <div className="rounded-2xl border border-white bg-white px-6 py-8 sm:px-8 sm:py-10 space-y-6 text-sm sm:text-base text-gray-700 leading-relaxed">
                 {manifestoParagraphs.map((paragraph, idx) => (
                   <p key={idx}>{paragraph}</p>
                 ))}
@@ -91,6 +91,17 @@ export default function Support() {
             >
               Contáctanos
             </a>
+          </div>
+
+          <div className="my-16 sm:my-20 flex justify-center">
+            <video
+              className="w-full max-w-4xl rounded-lg shadow-lg"
+              controls
+              playsInline
+              preload="metadata"
+            >
+              <source src="/creditos/creditos.webm" type="video/webm" />
+            </video>
           </div>
         </div>
       </section>
