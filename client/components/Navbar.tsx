@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const navItems = [
@@ -8,14 +7,15 @@ const navItems = [
 ];
 
 export function Navbar() {
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-
   return (
     <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-blood/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <Link to="/" className="text-2xl font-bold text-white hover:text-gray-200 transition-colors">
+            <Link
+              to="/"
+              className="text-2xl font-bold text-white hover:text-blood transition-colors duration-300"
+            >
               Hystera
             </Link>
           </div>
@@ -25,22 +25,16 @@ export function Navbar() {
               <Link
                 key={item.label}
                 to={item.href}
-                onMouseEnter={() => setHoveredItem(item.label)}
-                onMouseLeave={() => setHoveredItem(null)}
-                className="relative text-white font-medium text-sm transition-colors duration-200"
+                className="group relative py-1 text-white font-medium text-sm transition-colors duration-300 hover:text-blood"
               >
                 {item.label}
-                <span
-                  className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blood to-transparent transition-all duration-300 ${
-                    hoveredItem === item.label ? "w-full" : "w-0"
-                  }`}
-                />
+                <span className="absolute -bottom-0.5 left-0 h-1 w-0 rounded-full bg-blood transition-all duration-300 ease-out group-hover:w-full" />
               </Link>
             ))}
           </div>
 
           <div className="md:hidden">
-            <button className="text-white p-2">
+            <button className="text-white p-2 hover:text-blood transition-colors duration-300">
               <svg
                 className="w-6 h-6"
                 fill="none"

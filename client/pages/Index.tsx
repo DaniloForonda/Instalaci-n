@@ -22,7 +22,7 @@ export default function Index() {
       <section
         className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: `url('https://cdn.builder.io/api/v1/image/assets%2F5ab890bad22f4e5091682489acee8e34%2F98ade814cd7d4f0e9fc4ab17a0533947?format=webp&width=1600&height=2400')`,
+          backgroundImage: `url('/fondo/imagen-de-fondo.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -42,7 +42,6 @@ export default function Index() {
       </section>
 
 
-      {/* Footer */}
       <footer className="bg-black text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-center items-center">
@@ -60,7 +59,7 @@ export default function Index() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2026 Hystera. All rights reserved.</p>
+            <p>&copy; 2026 Hystera. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
