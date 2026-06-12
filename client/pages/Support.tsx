@@ -1,78 +1,54 @@
 import { Navbar } from "@/components/Navbar";
 
-export default function Support() {
-  const categories = [
-    {
-      title: "Medical Support",
-      items: [
-        "Find specialists",
-        "Treatment options",
-        "Clinical trials",
-      ],
-    },
-    {
-      title: "Community",
-      items: [
-        "Support groups",
-        "Online forums",
-        "Events & meetups",
-      ],
-    },
-    {
-      title: "Education",
-      items: [
-        "Research articles",
-        "Webinars",
-        "Personal stories",
-      ],
-    },
-  ];
+const teamMembers = [
+  { image: "/fotos-nosotros/1.png", name: "Maria Ángel Orozco" },
+  { image: "/fotos-nosotros/2.png", name: "Danilo Foronda" },
+  { image: "/fotos-nosotros/3.png", name: "Federico Gómez" },
+  { image: "/fotos-nosotros/4.png", name: "Sebastián López" },
+];
 
+export default function Support() {
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-screen">
       <Navbar />
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl font-bold text-black mb-8">
-            Support & Resources
-          </h1>
-          <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-            Living with endometriosis can be challenging, but you're not
-            alone. There are many resources available to help manage symptoms
-            and connect with others who understand your journey.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {categories.map((category, idx) => (
-              <div
-                key={idx}
-                className="p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300"
-              >
-                <h3 className="text-xl font-semibold text-blood mb-4">
-                  {category.title}
+
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-sm font-semibold tracking-[0.3em] uppercase text-blood mb-4">
+              Presentación
+            </p>
+            <h1 className="text-5xl md:text-6xl font-bold text-black mb-6">
+              Nosotrxs
+            </h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Este es
+              un texto de ejemplo para la presentación del equipo detrás de
+              Hystera.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
+            {teamMembers.map((member, idx) => (
+              <article key={idx} className="group min-w-0">
+                <div className="relative bg-black rounded-2xl overflow-hidden shadow-xl transition-transform duration-300 group-hover:-translate-y-1">
+                  <div className="aspect-[3/4] overflow-hidden">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" />
+                </div>
+
+                <h3 className="mt-5 text-center text-lg sm:text-xl font-bold text-black">
+                  {member.name}
                 </h3>
-                <ul className="space-y-2">
-                  {category.items.map((item, i) => (
-                    <li key={i} className="flex items-center">
-                      <span className="w-2 h-2 bg-blood rounded-full mr-3" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </article>
             ))}
           </div>
 
-          <div className="mt-12 p-8 bg-black text-white rounded-lg">
-            <h3 className="text-2xl font-semibold mb-4">Get in Touch</h3>
-            <p className="text-gray-200 mb-6 leading-relaxed">
-              Have questions or need support? We're here to help. Reach out to
-              our community and healthcare professionals who understand what
-              you're going through.
-            </p>
-            <button className="px-8 py-3 bg-blood text-white font-semibold rounded-lg hover:bg-blood-dark transition-colors duration-300">
-              Contact Us
-            </button>
-          </div>
         </div>
       </section>
 
