@@ -126,4 +126,10 @@
     z-index: 10;
     isolation: isolate;
   }
+
+  .video-alpha {
+    background: none !important;
+    background-color: transparent !important;
+    display: block;
+  }
 }

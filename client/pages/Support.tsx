@@ -109,12 +109,15 @@ export default function Support() {
 
           <div className="my-16 sm:my-20 flex justify-center">
             <video
-              className="w-full max-w-4xl rounded-lg shadow-lg"
+              className="video-alpha w-full max-w-4xl h-auto"
               controls
               playsInline
-              preload="metadata"
+              preload="auto"
             >
-              <source src="/creditos/creditos.webm" type="video/webm" />
+              <source
+                src="/creditos/creditos.webm"
+                type='video/webm; codecs="vp9"'
+              />
             </video>
           </div>
 
