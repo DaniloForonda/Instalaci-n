@@ -118,3 +118,12 @@
     white-space: pre;
   }
 }
+
+@layer components {
+  .content-panel {
+    background-color: #ffffff !important;
+    position: relative;
+    z-index: 10;
+    isolation: isolate;
+  }
+}

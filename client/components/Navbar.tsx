@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "Instalación", href: "/about" },
-  { label: "Bitacora", href: "/symptoms" },
-  { label: "Nosotrxs", href: "/support" },
+  { label: "Instalación", href: "/instalacion" },
+  { label: "Bitácora", href: "/bitacora" },
+  { label: "Nosotrxs", href: "/nosotrxs" },
 ];
 
 export function Navbar() {

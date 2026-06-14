@@ -35,6 +35,20 @@ const manifestoParagraphs = [
   "Hystera es nuestro proyecto de semestre, pero es también un lugar en el que nos encontramos. En la amistad universitaria, en el reconocimiento mutuo, y en la apertura de posibilidades que la creación multimedial nos ha permitido imaginar juntas. Un espacio que construimos mientras lo habitamos.",
 ];
 
+const acknowledgmentPeople = [
+  "Daniela Rios Henao",
+  "William Rios",
+  "Jonathan Palacio Restrepo",
+  "Luis Angel Mendoza",
+  "Juan David Usuga",
+  "Juan Camilo Martinez",
+  "Semillero Arte, Cuerpo y Cultura\nde la Facultad de Artes de\nla Universidad de Antioquia",
+  "Oscar David Mazuera",
+  "Ricardo Cedeño",
+  "William Montoya",
+  "Alejandra Uribe",
+];
+
 export default function Support() {
   return (
     <div className="relative bg-white min-h-screen">
@@ -65,7 +79,7 @@ export default function Support() {
             </div>
 
             <div className="mx-auto w-full max-w-[560px] sm:max-w-[640px] lg:max-w-[600px] lg:pt-0">
-              <div className="rounded-2xl border border-white bg-white px-6 py-8 sm:px-8 sm:py-10 space-y-6 text-sm sm:text-base text-gray-700 leading-relaxed">
+              <div className="content-panel rounded-2xl px-6 py-8 sm:px-8 sm:py-10 space-y-6 text-sm sm:text-base text-gray-700 leading-relaxed">
                 {manifestoParagraphs.map((paragraph, idx) => (
                   <p key={idx}>{paragraph}</p>
                 ))}
@@ -87,7 +101,7 @@ export default function Support() {
           <div className="mt-14 flex justify-center">
             <a
               href="mailto:danilo.foronda@udea.edu.co"
-              className="inline-block px-8 py-2.5 text-sm font-medium text-white bg-blood-dark/90 rounded-md hover:bg-blood-dark transition-colors duration-300"
+              className="inline-block px-8 py-2.5 text-base font-medium text-white bg-blood-dark/90 rounded-md hover:bg-blood-dark transition-colors duration-300"
             >
               Contáctanos
             </a>
@@ -102,6 +116,30 @@ export default function Support() {
             >
               <source src="/creditos/creditos.webm" type="video/webm" />
             </video>
+          </div>
+
+          <div className="mt-20 sm:mt-24">
+            <div className="text-center mb-12 sm:mb-14">
+              <p className="text-sm font-semibold tracking-[0.3em] uppercase text-blood mb-4">
+                Con gratitud
+              </p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-black">
+                Agradecimientos
+              </h2>
+            </div>
+
+            <div className="content-panel max-w-4xl mx-auto rounded-2xl px-6 py-10 sm:px-10 sm:py-12">
+              <ul className="columns-1 sm:columns-2 gap-x-12 max-w-3xl mx-auto">
+                {acknowledgmentPeople.map((name) => (
+                  <li
+                    key={name}
+                    className="break-inside-avoid mb-4 sm:mb-5 text-center text-base sm:text-lg text-gray-800 leading-relaxed whitespace-pre-line"
+                  >
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
